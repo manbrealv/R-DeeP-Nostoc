@@ -145,15 +145,15 @@ table_individual_gradients<-table_individual_gradients[,c(1:19,21)]
               tabsetPanel(id="tabset",
                 tabPanel(h4("GradR",style="color: #006594"),fluidRow(h2("")),
                          fluidRow(
-                           column(wellPanel(p(h3(em("Nostoc"), "Protein of Interest"),br()),
+                           column(wellPanel(p(h3(em("Nostoc"), "protein of interest"),br()),
                                             radioButtons(inputId = "Search_mode",  choices = c("All", "Shifting proteins"), label="Search for all proteins or only shifting proteins:", selected = c("All"), inline=TRUE),
                                             pickerInput(inputId = "Gene_ID_GradR", label = "Please select a protein: ", choices = rownames(table.ctrl1), selected=c("rplA(alr5301)"), 
                                                         options = list(`actions-box` = TRUE, `live-search` = TRUE), multiple = F),
-                                            downloadButton("downloadGradRPlot", "Download GradR Plot"),
+                                            downloadButton("downloadGradRPlot", "Download GradR plot"),
                                             downloadButton("downloadGradRTable", "Download table with distribution per gradient")
                                             ),
                                   wellPanel(p(h4(textOutput("RNA_Dependance")),br(),textOutput("High_Decision"),textOutput("Low_Decision")),
-                                            conditionalPanel(condition= "output.RNA_Dependance == 'RNA-dependent shift'",
+                                            conditionalPanel(condition= "output.RNA_Dependance == 'RNase-dependent shift'",
                                                              conditionalPanel(condition="output.High_Decision == ' '",p("Fraction hits with shift (foldchange > 2 and fdr < 0.05): ",textOutput("High_significant"))),
                                                              conditionalPanel(condition="output.Low_Decision == ' '",p("Fraction candidates with shift (foldchange > 1.5 and fdr < 0.02): ",textOutput("Low_significant")))
                                             )
@@ -161,29 +161,29 @@ table_individual_gradients<-table_individual_gradients[,c(1:19,21)]
                                   wellPanel(p(h4(textOutput("SVM_prediction")),br()),
                                             conditionalPanel(condition="output.SVM_prediction == 'Predicted as RBP'",p(style="text-align: justify;","This protein is predicted as an RBP by our SVM approach. 
                                                             To check its score and the conservation of its RNA-binding capacity, click here:"),
-                                                             actionButton(inputId = "SVMbutton",label="Go to SVM Prediction"))
+                                                             actionButton(inputId = "SVMbutton",label="Go to SVM prediction"))
                                     
                                   )
                                   ,width = 3),
                            column(wellPanel(uiOutput("GradRPlot_UI"),style="background: white"),width = 6, style="border: grey"),
                            column(wellPanel(p(h3(textOutput("Description"),align="center"),br()),
-                                            wellPanel(fluidRow(column(h5("Protein Accesion:",align="left"),width=6),
+                                            wellPanel(fluidRow(column(h5("Protein accession:",align="left"),width=6),
                                                                column(h5(textOutput("P_accesion"),align="right"),width=6)),
                                                       
-                                                      fluidRow(column(h5("Molecular Weight:",align="left"),width=6),
+                                                      fluidRow(column(h5("Molecular weight:",align="left"),width=6),
                                                                column(h5(textOutput("MW"),align="right"),width=6)),
                                                       
                                                       fluidRow(column(h5("Length:",align="left"),width=6),
                                                                column(h5(textOutput("AA_Length"),align="right"),width=6)),
                                                       
-                                                      fluidRow(column(h5("Isoelectric Point:",align="left"),width=6),
+                                                      fluidRow(column(h5("Isoelectric point:",align="left"),width=6),
                                                                column(h5(textOutput("PI"),align="right"),width=6)),
                                             style="background-color: #ffffff",align="center"),
                                             p(h5("Link to protein database:",style="font-family: 'Arial', color: #006594"),uiOutput("Link_UNIPROT"))
                                           ),
                                   wellPanel(p(h4("Clustering"),textOutput("Clustering_decision"),br()),
-                                            conditionalPanel(condition="output.Clustering_decision == ' '",p("This protein co-fractionate with
-                                            other proteins in Cluster",textOutput("Clustering",inline=T),". To look for potential interaction partners click here to go to Cluster visualization: "),
+                                            conditionalPanel(condition="output.Clustering_decision == ' '",p("This protein co-fractionates with
+                                            other proteins in cluster",textOutput("Clustering",inline=T),". To look for potential interaction partners click here to go to cluster visualization: "),
                                                              actionButton(inputId = "Clusteringbutton",label="Test")),
                                             conditionalPanel(condition="output.Clustering_decision != ' '",p(style="text-align: justify;","This protein did not show a clear co-fractionation pattern with other potential interaction partners"))
                                             
@@ -191,18 +191,18 @@ table_individual_gradients<-table_individual_gradients[,c(1:19,21)]
                            ,width = 3)
                            )
                          ),
-                tabPanel(h4("Co-fractionation Explorer",style="color: #006594"),fluidRow(h2("")),
+                tabPanel(h4("Co-fractionation explorer",style="color: #006594"),fluidRow(h2("")),
                          fluidRow(
-                           column(wellPanel(p(h3("Co-fractionation Explorer"),br()),
+                           column(wellPanel(p(h3("Co-fractionation explorer"),br()),
                                         pickerInput(inputId = "Gene_ID_m", label = "Please select your proteins of interest: ",
                                         choices = rownames(table.ctrl1), selected=c("rplA(alr5301)"), 
                                         options = list(`actions-box` = TRUE, `live-search` = TRUE), multiple = T),
                                         radioButtons(inputId = "Sample",  choices = c("Ctrl", "RNases"), label="Sample", selected = c("Ctrl"), inline=TRUE),
-                                        selectInput(inputId = "height_HeatmapMul", label = "Please adjust Plot Height: ",
+                                        selectInput(inputId = "height_HeatmapMul", label = "Please adjust plot height: ",
                                                     choices = c(1:10*10), selected=20),
-                                        sliderInput(inputId = "Heatmap_width", label = "Please select Plot width for download:",
+                                        sliderInput(inputId = "Heatmap_width", label = "Please select plot width for download:",
                                                     min = 1, max = 100, value = 20,  step = 5 ),
-                                        downloadButton("downloadHeatmap", "Download Heatmap")
+                                        downloadButton("downloadHeatmap", "Download heatmap")
                                             ),width = 3),
                            column(uiOutput("GradSeqHeatmapMul_summaryUI"),width = 9)
                          )
@@ -210,10 +210,10 @@ table_individual_gradients<-table_individual_gradients[,c(1:19,21)]
                 tabPanel(h4("Clustering",style="color: #006594"),value="Clustering",fluidRow(h2("")),
                          fluidRow(
                            column(wellPanel(p(h3("Clustering analysis (ctrl samples)"),br()),
-                                            selectInput(inputId = "Cluster_analysis", label = "Please select Cluster: ",
+                                            selectInput(inputId = "Cluster_analysis", label = "Please select cluster: ",
                                                         choices = paste("Cluster ",1:19,sep=""), selected="Cluster 19"),
-                                            downloadButton("downloadClusterPlot", "Download Cluster Plot"),
-                                            downloadButton("downloadClusterTable", "Download Cluster Table")
+                                            downloadButton("downloadClusterPlot", "Download cluster plot"),
+                                            downloadButton("downloadClusterTable", "Download cluster table")
                            ),
                            uiOutput("ClusterlinePlotUI"),h6("Average distribution of proteins in", textOutput("cluster_caption",inline=T),"along the gradient. Grey lines show the distribution of individual proteins. Blue line show the average distribution of the cluster."),
                            width = 4),
@@ -224,28 +224,28 @@ table_individual_gradients<-table_individual_gradients[,c(1:19,21)]
                          ),
                 tabPanel(h4("SVM",style="color: #006594"),value="SVM",fluidRow(h2("")),
                          fluidRow(
-                           column(wellPanel(p(h3("Sidebar SVM Explorer"),br()),
+                           column(wellPanel(p(h3("SVM explorer"),br()),
                                               pickerInput(inputId = "Gene_SVM_ID", label = "Please select a protein: ",choices = unique(table_SVM$new_Gene), 
                                                           selected=c("rplA(alr5301)"), options = list(`actions-box` = TRUE, `live-search` = TRUE), multiple = T),
-                                            radioButtons(inputId = "Plot_type",  choices = c("Boxplot", "Heatmap"), label="Please select the Plot type:", selected = c("Boxplot"), inline=TRUE),
-                                            selectInput(inputId = "height_SVM", label = "Please adjust Plot Height: ",
+                                            radioButtons(inputId = "Plot_type",  choices = c("Boxplot", "Heatmap"), label="Please select the plot type:", selected = c("Boxplot"), inline=TRUE),
+                                            selectInput(inputId = "height_SVM", label = "Please adjust plot height: ",
                                                           choices = c(1:10*10), selected=30),
-                                            sliderInput(inputId = "SVM_width", label = "Please select Plot width for download:",
+                                            sliderInput(inputId = "SVM_width", label = "Please select plot width for download:",
                                                         min = 1, max = 100, value = 20,  step = 5 ),
                                             downloadButton("downloadSVMplot", "Download SVM plot")
                                             ),width = 3),
                            column(wellPanel(uiOutput("SVM_UI"),
-                                            conditionalPanel(condition="input.Plot_type == 'Boxplot'",h6("SVM score of homologs of selected proteins. Red dot: Score for Nostoc proteins. Black dots: Score for homologs. Red dashed line: threshold for considering a RBP. Scores higher than 0.25 are considered putative RBPs.")),
-                                            conditionalPanel(condition="input.Plot_type == 'Heatmap'",h6("SVM score of homologs of selected proteins in different cyanobacterial strains. No found homologs are shown in grey. Red color show higher SVM score which indicate a putative higher capacity to bind RNA.")),
+                                            conditionalPanel(condition="input.Plot_type == 'Boxplot'",h6("SVM score of homologs of selected proteins. Red dot: Score for Nostoc proteins. Black dots: Score for homologs. Red dashed line: threshold to be considered an RBP. Scores higher than 0.25 are considered RBPs.")),
+                                            conditionalPanel(condition="input.Plot_type == 'Heatmap'",h6("SVM score of homologs of selected proteins in different cyanobacterial strains. No found homologs are shown in grey. Higher SVM scores are shown in red, indicating a presumed higher ability to bind RNA.")),
                                             style="background: white; border: grey")
                                   ,width = 9)
                          )
                          ),
                 tabPanel(h4("Tutorial",style="color: #006594"),value="Tutorial",fluidRow(h2("")),
                          h4("Introduction"),
-                         p("This is a comprehensive database for the identification of putative RNA-binding proteins (RBPs) in the multicellular cyanobacterium", em("Nostoc"),"sp. PCC 7120. We have used GradR/R-DeeP to detect the RNA-dependent proteome of this cyanobacterium. These methods rely on the fractionation of the RNA-protein or protein-protein complexes in sucrose gradients. After the treatment of a gradient with RNAses, if the apparent distribution of a protein changes, that would point out to the participation of the protein in a big RNA-protein complex (see Figure 1).",
+                         p("This is a comprehensive database for the identification of putative RNA-binding proteins (RBPs) in the multicellular cyanobacterium", em("Nostoc"),"sp. PCC 7120. We have used GradR/R-DeeP to detect the RNA-dependent proteome of this cyanobacterium. These methods rely on the fractionation of the RNA-protein or protein-protein complexes in sucrose gradients. After the treatment of a gradient with RNases, if the apparent distribution of a protein changes, that would point out to the participation of the protein in a big RNA-protein complex (see Figure 1).",
                            br(),br(),
-                           "The apparent shift of a protein in the gradients could not be due to their RNA-binding capacity. To filter out proteins that are bound to other RBPs (RNA-dependent proteins) from direct RNA-binding proteins, we have implemented a support vector machine (SVM) based on TriPepSVM approach. The overlay between the proteins shifting and the proteins with good SVM scores have yielded a number of potential RBPs.",br(),br()),
+                           "The apparent shift of a protein in the gradients could not be due to their RNA-binding capacity. Shifting proteins with good SVM scores are good candidates to analyze by biochemical methods",br(),br()),
                           img(src='Fig1.png', height="45%", width="45%", style="display: block; margin-left: auto; margin-right: auto;"),br(),br(),
                            p("Finally, the clustering analysis of the control gradients has allowed us to predict new components of big macromolecular complexes. The quality of the data is shown in the co-fractionation of 50S and 30S ribosomal subunits, PSI and PSII core and components of the RNA polymerase.",br(),br()),
                          h4("GradR tab"),
@@ -315,11 +315,11 @@ server<-function(input,output,session)
     scatterPlot <- ggplot() +
       
       # curve CTRL
-      geom_line(data=df_ctrl, aes(x=Fractions, y=Amount, color="green"), size=.5) +
-      geom_point(data=df_ctrl, mapping=aes(x=Fractions, y=Amount), color="green", shape=1, size=1) +
+      geom_line(data=df_ctrl, aes(x=Fractions, y=Amount, color="#005AB5"), size=.5) +
+      geom_point(data=df_ctrl, mapping=aes(x=Fractions, y=Amount), color="#005AB5", shape=1, size=1) +
       
       # shadow CTRL
-      geom_area(data=df_ctrl, aes(x=Fractions, y=Amount), fill="green", alpha=.1, show.legend=F) +
+      geom_area(data=df_ctrl, aes(x=Fractions, y=Amount), fill="#005AB5", alpha=.1, show.legend=F) +
       
       # shadded errors
       geom_ribbon(data=df_sd_ctrl,aes(x=Fractions,ymin=lower,ymax=upper),alpha=0.3) +
@@ -341,7 +341,7 @@ server<-function(input,output,session)
       labs(title = title) +
       
       # Legend
-      scale_color_manual(values = c("#09b957","#f42730"), labels=c("Control","RNases")) +
+      scale_color_manual(values = c("#005AB5","red"), labels=c("Control","RNases")) +
       theme(legend.position=c(0.75,0.98),
             legend.text=element_text(size=12),
             legend.direction="horizontal",
@@ -378,7 +378,7 @@ server<-function(input,output,session)
     colnames(r2.df) <- c("Amount","Fractions","RNases")
     
     # now plot the whole
-    plot1 <- ggplot(r1.df, aes(x=Fraction+0.5, y=ctrl)) + geom_tile(aes(fill = Amount)) + coord_equal(2) + theme(legend.position="none", axis.title.y = element_text(color="black",size=12,face="bold"),axis.text.x=element_text(size=10), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + scale_fill_gradient(low="white", high="green",n.breaks=100) + theme(axis.text.y=element_blank(), axis.ticks.y=element_blank(), axis.title.x=element_blank())  + scale_x_discrete(name ="Fractions", limits=c("1_2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"))
+    plot1 <- ggplot(r1.df, aes(x=Fraction+0.5, y=ctrl)) + geom_tile(aes(fill = Amount)) + coord_equal(2) + theme(legend.position="none", axis.title.y = element_text(color="black",size=12,face="bold"),axis.text.x=element_text(size=10), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + scale_fill_gradient(low="white", high="#005AB5",n.breaks=100) + theme(axis.text.y=element_blank(), axis.ticks.y=element_blank(), axis.title.x=element_blank())  + scale_x_discrete(name ="Fractions", limits=c("1_2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"))
     plot2 <- ggplot(r2.df, aes(x=Fractions+0.5, y=RNases)) + geom_tile(aes(fill = Amount)) + coord_equal(2) + theme(legend.position="none",axis.text.x=element_text(size=10),axis.title.y = element_text(color="black",size=12,face="bold"),panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + scale_fill_gradient(low="white", high="red",n.breaks=100) + theme(axis.text.y=element_blank(), axis.ticks.y=element_blank(), axis.title.x=element_blank()) + scale_x_discrete(name ="Fractions", limits=c("1_2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"))
     
     # combine all graphics in one panel
@@ -448,7 +448,7 @@ server<-function(input,output,session)
     pos<-input$Gene_ID_GradR
     if(table_annotation[pos,"Shift"])
     {
-      "RNA-dependent shift" 
+      "RNase-dependent shift" 
     }
     else
     {
@@ -548,7 +548,7 @@ server<-function(input,output,session)
     data2$Gene<-factor(x=data2$new_Gene,levels=rev(Gene_ID_in_m),ordered=TRUE)
     
     ggplot(data2, aes(x = variable, y = new_Gene, fill = value)) +  geom_tile()+
-      scale_fill_gradient("% Protein:  ",low = "white",high="black") + theme_bw() + labs(x="Fractions",y="Protein") +
+      scale_fill_gradient("Normalized protein amount (%):  ",low = "white",high="black") + theme_bw() + labs(x="Fractions",y="Protein") +
       theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),panel.spacing.y = unit(-0.1, "lines"), 
             legend.background = element_rect(linetype = 2, size = 0.5, colour = 1), legend.position = "bottom",
             text=element_text(size=15,colour="black")) 
@@ -578,7 +578,7 @@ server<-function(input,output,session)
       facet_wrap(~ Cluster) +
       customPlot +
       theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))  +
-      ylab("% protein") + xlab("Fractions")
+      ylab("Normalized protein amount (%)") + xlab("Fractions")
     
 
   })
@@ -617,7 +617,7 @@ server<-function(input,output,session)
       data_SVM_X2$Query.Genome<-factor(data_SVM_X2$Query.Genome,levels=levels.for.factor)
       
       ggplot(data_SVM_X2, aes(x = new_Gene, y = Query.Genome, fill = value)) +  geom_tile(colour="white",size=0.25) + 
-        scale_fill_gradient2("Score  ",low = "blue",mid="white",high="red",na.value="grey80",limits=c(-2,2)) + labs(x="",y="Organism") +
+        scale_fill_gradient2("Score  ",low = "#005AB5",mid="white",high="red",na.value="grey80",limits=c(-2,2)) + labs(x="",y="Organism") +
         theme(panel.background=element_blank(),panel.border=element_blank(),legend.background = element_rect(linetype = 2, size = 0.2, colour = 1), legend.position = "bottom",
               axis.text.x=element_text(size=9,angle=90),axis.text.y=element_text(size=8),legend.text=element_text(size=9))
       
@@ -647,7 +647,7 @@ server<-function(input,output,session)
   output$MW<-renderText({paste0(get_MW()," KDa")})
   output$AA_Length<-renderText({paste0(get_AA_length()," AA")})
   output$PI<-renderText({get_PI()})
-  output$Link_UNIPROT<-renderUI({HTML(paste0("<a href=",get_link(),"> Link to ",get_database(),"</a>"))})
+  output$Link_UNIPROT<-renderUI({HTML(paste0("<a href=",get_link()," target='_blank'> Link to ",get_database(),"</a>"))})
   output$GradRPlot <- renderPlot({GradR()})
   output$GradRPlot_UI<-renderUI({plotOutput("GradRPlot",height=20*30)})
   output$RNA_Dependance<-renderText({RNA_dependance_function()})
@@ -697,7 +697,7 @@ server<-function(input,output,session)
   })
   
   observeEvent(input$Gene_ID_GradR, {
-    updateActionButton(session = session, inputId="Clusteringbutton",label=paste0("Search Cluster ",extract_cluster()) )
+    updateActionButton(session = session, inputId="Clusteringbutton",label=paste0("Search cluster ",extract_cluster()) )
   })
   
   observeEvent(input$Clusteringbutton, {
@@ -705,7 +705,7 @@ server<-function(input,output,session)
     updateTabsetPanel(session = session, inputId = "tabset", selected = "Clustering")
   })
   
-  output$cluster_caption<-renderText({input$Cluster_analysis})
+  output$cluster_caption<-renderText({tolower(input$Cluster_analysis)})
   
   SVM_Width <- reactive({ req(input$SVM_width)
     as.numeric(input$SVM_width)
@@ -740,3 +740,4 @@ server<-function(input,output,session)
 #    
 
 shinyApp(ui=ui,server=server)
+
