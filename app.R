@@ -159,7 +159,7 @@ table_individual_gradients<-table_individual_gradients[,c(1:19,21)]
                                             )
                                             ),
                                   wellPanel(p(h4(textOutput("SVM_prediction")),br()),
-                                            conditionalPanel(condition="output.SVM_prediction == 'Predicted as RBP'",p(style="text-align: justify;","This protein is predicted as an RBP by our SVM approach. 
+                                            conditionalPanel(condition="output.SVM_prediction == 'Predicted as RBP'",p(style="text-align: justify;","This protein is predicted to be an RBP by our SVM approach. 
                                                             To check its score and the conservation of its RNA-binding capacity, click here:"),
                                                              actionButton(inputId = "SVMbutton",label="Go to SVM prediction"))
                                     
@@ -182,10 +182,10 @@ table_individual_gradients<-table_individual_gradients[,c(1:19,21)]
                                             p(h5("Link to protein database:",style="font-family: 'Arial', color: #006594"),uiOutput("Link_UNIPROT"))
                                           ),
                                   wellPanel(p(h4("Clustering"),textOutput("Clustering_decision"),br()),
-                                            conditionalPanel(condition="output.Clustering_decision == ' '",p("This protein co-fractionates with
-                                            other proteins in cluster",textOutput("Clustering",inline=T),". To look for potential interaction partners click here to go to cluster visualization: "),
+                                            conditionalPanel(condition="output.Clustering_decision == ' '",p(HTML(paste0("This protein co-fractionates with
+                                            other proteins in cluster ",textOutput("Clustering",inline=T),". To search for potential interaction partners click here to go to the cluster visualisation: "))),
                                                              actionButton(inputId = "Clusteringbutton",label="Test")),
-                                            conditionalPanel(condition="output.Clustering_decision != ' '",p(style="text-align: justify;","This protein did not show a clear co-fractionation pattern with other potential interaction partners"))
+                                            conditionalPanel(condition="output.Clustering_decision != ' '",p(style="text-align: justify;","This protein does not show a clear co-fractionation pattern with other potential interaction partners."))
                                             
                                   )
                            ,width = 3)
@@ -215,7 +215,7 @@ table_individual_gradients<-table_individual_gradients[,c(1:19,21)]
                                             downloadButton("downloadClusterPlot", "Download cluster plot"),
                                             downloadButton("downloadClusterTable", "Download cluster table")
                            ),
-                           uiOutput("ClusterlinePlotUI"),h6("Average distribution of proteins in", textOutput("cluster_caption",inline=T),"along the gradient. Grey lines show the distribution of individual proteins. Blue line show the average distribution of the cluster."),
+                           uiOutput("ClusterlinePlotUI"),h6("Average distribution of proteins in", textOutput("cluster_caption",inline=T),"along the gradient. Grey lines show the distribution of individual proteins. The blue line shows the average distribution of the cluster."),
                            width = 4),
                            column(wellPanel(DT::dataTableOutput("table_Cluster"),style="background-color: white")
                              ,width = 8)
@@ -235,8 +235,8 @@ table_individual_gradients<-table_individual_gradients[,c(1:19,21)]
                                             downloadButton("downloadSVMplot", "Download SVM plot")
                                             ),width = 3),
                            column(wellPanel(uiOutput("SVM_UI"),
-                                            conditionalPanel(condition="input.Plot_type == 'Boxplot'",h6("SVM score of homologs of selected proteins. Red dot: Score for Nostoc proteins. Black dots: Score for homologs. Red dashed line: threshold to be considered an RBP. Scores higher than 0.25 are considered RBPs.")),
-                                            conditionalPanel(condition="input.Plot_type == 'Heatmap'",h6("SVM score of homologs of selected proteins in different cyanobacterial strains. No found homologs are shown in grey. Higher SVM scores are shown in red, indicating a presumed higher ability to bind RNA.")),
+                                            conditionalPanel(condition="input.Plot_type == 'Boxplot'",h6("SVM score of homologs of selected proteins. Red dot: Score for Nostoc proteins. Black dots: Score for homologs. Red dashed line: threshold to be considered an RBP. Proteins with a score greater than 0.25 are predicted to be RBPs.")),
+                                            conditionalPanel(condition="input.Plot_type == 'Heatmap'",h6("SVM score of homologs of selected proteins in different cyanobacterial strains. Homologs that were not found are shown in grey. Higher SVM scores are shown in red, indicating a presumed higher ability to bind RNA.")),
                                             style="background: white; border: grey")
                                   ,width = 9)
                          )
@@ -245,26 +245,26 @@ table_individual_gradients<-table_individual_gradients[,c(1:19,21)]
                          h4("Introduction"),
                          p("This is a comprehensive database for the identification of putative RNA-binding proteins (RBPs) in the multicellular cyanobacterium", em("Nostoc"),"sp. PCC 7120. We have used GradR/R-DeeP to detect the RNA-dependent proteome of this cyanobacterium. These methods rely on the fractionation of the RNA-protein or protein-protein complexes in sucrose gradients. After the treatment of a gradient with RNases, if the apparent distribution of a protein changes, that would point out to the participation of the protein in a big RNA-protein complex (see Figure 1).",
                            br(),br(),
-                           "The apparent shift of a protein in the gradients could not be due to their RNA-binding capacity. Shifting proteins with good SVM scores are good candidates to analyze by biochemical methods",br(),br()),
+                           "The apparent shift of a protein in the gradients may not be due to its RNA-binding capacity, but rather to its interaction with other RBPs in a large RNA-protein complex. We have used a modified version of TriPepSVM, a support vector machine approach, to predict RBPs bioinformatically. Shifting proteins with a good score in the SVM are good candidates to be analysed by biochemical methods.",br(),br()),
                           img(src='Fig1.png', height="45%", width="45%", style="display: block; margin-left: auto; margin-right: auto;"),br(),br(),
                            p("Finally, the clustering analysis of the control gradients has allowed us to predict new components of big macromolecular complexes. The quality of the data is shown in the co-fractionation of 50S and 30S ribosomal subunits, PSI and PSII core and components of the RNA polymerase.",br(),br()),
                          h4("GradR tab"),
-                         p("This is the main page of the app. From here, the user can access all the information we have for a selected protein. The user can select all the detected proteins by MS or only the ones showing a significant shift. For each selected protein it is displayed if a protein has a significant shift, if a protein was predicted by our SVM approach, some general information and the clustering results.",
+                         p("This is the main page of the application. From here the user can access all the information we have for a selected protein. The user can select all proteins detected by MS or only those that show a significant shift. For each selected protein, it is shown whether a protein has a significant shift, whether a protein has been predicted by our SVM approach, some general information and the clustering results."
+                           ,br(),br(),
+                           "We have used",em("limma"), "to test whether the distribution of a protein in each fraction differs between three control gradients or three RNAse-treated gradients. When the user selects a protein, the application shows whether there are any fractions with significant changes. The user can check the distribution of the protein in the control and RNAse-treated gradients in the central plot.",
                            br(),br(),
-                           "We have used ",em("limma")," to test if the distribution of a protein in each fraction differs between three control gradients or three RNAse-treated gradients.  If the user selects a protein, the app will show if there are any fractions with significant changes. The user can check the distribution of the protein in the control and RNAse-treated gradients in the central plot.",
+                           "If the protein was predicted to be an RBP by our SVM approach, this is shown in a separate panel. If the user clicks on the button, he will be taken directly to the 'SVM Score' section for that protein.",
                            br(),br(),
-                           "If the protein was predicted to be an RBP by our SVM approach that will be displayed in a different panel. If the user clicks on the button, he will go directly to the 'SVM Score' section for that protein.",
-                           br(),br(),
-                           "At the same time, if the protein was clustered, the clustering information will be displayed below the general information for the protein. If the user clicks on the button, he will go directly to the particular cluster in which the user can check potential interaction partner that had the same sedimentation profile."),
+                           "At the same time, if the protein has been clustered, the clustering information is displayed below the general information for the protein. Clicking on the button will take the user directly to the relevant cluster, where he can check potential interaction partners that have the same sedimentation profile."),
                          img(src='Fig_S1.png', height="60%", width="60%", style="display: block; margin-left: auto; margin-right: auto;"), br(), br(),
                          h4("Co-fractionation tab"),
-                         p("The user can select any number of proteins to test their sedimentation profiles along the gradient. It can be selected which gradients should be displayed, either the control gradients or the RNAse treated gradients. The selection of height and width for downloading the heatmap plot is necessary to get a proper plot.",br(),br()),
+                         p("It is possible to select which gradients to display, either the control gradients or the RNAse treated gradients. The selection of height and width for downloading the heatmap plot is necessary to obtain a proper plot.",br(),br()),
                          img(src='Fig_S2.png', height="60%", width="60%", style="display: block; margin-left: auto; margin-right: auto;"), br(), br(),
                          h4("Clustering tab"),
-                         p("Our approach has predicted 19 distinct cluster of protein. The user can select any cluster. The sedimentation profile for the cluster will be plotted and a table with the components of the cluster are displayed and ready for downloading.",br(),br()),
+                         p("Our approach has predicted 19 different protein clusters. The user can select any cluster. The sedimentation profile for the cluster is plotted and a table with the components of the cluster is displayed and ready for download.",br(),br()),
                          img(src='Fig_S3.png', height="60%", width="60%", style="display: block; margin-left: auto; margin-right: auto;"), br(), br(),
                          h4("SVM tab"),
-                         p("This tab shows the results of our SVM approach. Any number of protein can be selected and the SVM scores of that protein in ", em("Nostoc"), "and their cyanobacteria homologs will be plotted. The user can select either a Boxplot or a Heatmap plot. The boxplot is recommended for a first check of how good the RNA-binding capacity is conserved in cyanobacteria. The heatmap allow the user a better analysis of which particular cyanobacterial homologs shows good SVM score and therefore a putative RNA-binding capacity.",br(),br()),
+                         p("This tab shows the results of our SVM approach. Any number of proteins can be selected and the SVM scores of that protein in",em("Nostoc"), "and its cyanobacterial homologs are plotted. The user can select either a boxplot or a heatmap plot. The box plot is recommended for a first check of how well the RNA binding capacity is conserved in cyanobacteria. The heatmap allows the user to better analyse which particular cyanobacterial homologues have a good SVM score and therefore a putative RNA binding capacity.",br(),br()),
                          img(src='Fig_S4.png', height="60%", width="60%", style="display: block; margin-left: auto; margin-right: auto;"), br(), br()
                          )
               ),
@@ -740,4 +740,3 @@ server<-function(input,output,session)
 #    
 
 shinyApp(ui=ui,server=server)
-
