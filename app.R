@@ -138,12 +138,12 @@ table_individual_gradients<-table_individual_gradients[,c(1:19,21)]
 
 ###### ui
 
-  ui<-fluidPage(title="GradR Nostoc",fluidRow(
+  ui<-fluidPage(title="R-DeeP Nostoc",fluidRow(
                 column(width=4),
-                column(h1("GradR", em("Nostoc"), style="font-family: 'Arial'; font-weight: bolder; font-size: 50px; color: #006594",align="center"),width=4),
+                column(h1("R-DeeP", em("Nostoc"), style="font-family: 'Arial'; font-weight: bolder; font-size: 50px; color: #006594",align="center"),width=4),
                 column(img(src='CyanoRBP.png', height="80%", width="80%", align = "right"),width=4)),
               tabsetPanel(id="tabset",
-                tabPanel(h4("GradR",style="color: #006594"),fluidRow(h2("")),
+                tabPanel(h4("R-DeeP",style="color: #006594"),fluidRow(h2("")),
                          fluidRow(
                            column(wellPanel(p(h3(em("Nostoc"), "protein of interest"),br()),
                                             radioButtons(inputId = "Search_mode",  choices = c("All", "Shifting proteins"), label="Search for all proteins or only shifting proteins:", selected = c("All"), inline=TRUE),
@@ -243,12 +243,12 @@ table_individual_gradients<-table_individual_gradients[,c(1:19,21)]
                          ),
                 tabPanel(h4("Tutorial",style="color: #006594"),value="Tutorial",fluidRow(h2("")),
                          h4("Introduction"),
-                         p("This is a comprehensive database for the identification of putative RNA-binding proteins (RBPs) in the multicellular cyanobacterium", em("Nostoc"),"sp. PCC 7120. We have used GradR/R-DeeP to detect the RNA-dependent proteome of this cyanobacterium. These methods rely on the fractionation of the RNA-protein or protein-protein complexes in sucrose gradients. After the treatment of a gradient with RNases, if the apparent distribution of a protein changes, that would point out to the participation of the protein in a big RNA-protein complex (see Figure 1).",
+                         p("This is a comprehensive database for the identification of putative RNA-binding proteins (RBPs) in the multicellular cyanobacterium", em("Nostoc"),"sp. PCC 7120. We have used R-DeeP to detect the RNA-dependent proteome of this cyanobacterium. These methods rely on the fractionation of the RNA-protein or protein-protein complexes in sucrose gradients. After the treatment of a gradient with RNases, if the apparent distribution of a protein changes, that would point out to the participation of the protein in a big RNA-protein complex (see Figure 1).",
                            br(),br(),
                            "The apparent shift of a protein in the gradients may not be due to its RNA-binding capacity, but rather to its interaction with other RBPs in a large RNA-protein complex. We have used a modified version of TriPepSVM, a support vector machine approach, to predict RBPs bioinformatically. Shifting proteins with a good score in the SVM are good candidates to be analysed by biochemical methods.",br(),br()),
                           img(src='Fig1.png', height="45%", width="45%", style="display: block; margin-left: auto; margin-right: auto;"),br(),br(),
                            p("Finally, the clustering analysis of the control gradients has allowed us to predict new components of big macromolecular complexes. The quality of the data is shown in the co-fractionation of 50S and 30S ribosomal subunits, PSI and PSII core and components of the RNA polymerase.",br(),br()),
-                         h4("GradR tab"),
+                         h4("R-DeeP tab"),
                          p("This is the main page of the application. From here the user can access all the information we have for a selected protein. The user can select all proteins detected by MS or only those that show a significant shift. For each selected protein, it is shown whether a protein has a significant shift, whether a protein has been predicted by our SVM approach, some general information and the clustering results."
                            ,br(),br(),
                            "We have used",em("limma"), "to test whether the distribution of a protein in each fraction differs between three control gradients or three RNAse-treated gradients. When the user selects a protein, the application shows whether there are any fractions with significant changes. The user can check the distribution of the protein in the control and RNAse-treated gradients in the central plot.",
