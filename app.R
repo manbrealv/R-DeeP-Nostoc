@@ -658,6 +658,9 @@ server<-function(input,output,session)
   output$downloadGradRPlot<-downloadHandler(filename= function(){paste0("GradR_",input$Gene_ID_GradR, ".pdf")},
                                            content= function(file){ggsave(file,plot=GradR(),device="pdf",width=10,height=10)}
                                             )
+  output$downloadGradRTable<-downloadHandler(filename= function(){paste0(input$Gene_ID_GradR,"_table.txt")},
+                                             content= function(file){write.table(extract_table_GradR(), file,sep="\t",row.names=FALSE)}
+  )
   output$SVM_prediction<-renderText({SVM_prediction_decision()})
   output$Clustering_decision<-renderText({cluster_decision()})
   output$Clustering<-renderText({extract_cluster()})
@@ -720,9 +723,6 @@ server<-function(input,output,session)
                                           }
   )
   
-  output$downloadGradRTable<-downloadHandler(filename= function(){paste0(input$Gene_ID_m,"_table.txt")},
-                                               content= function(file){write.table(extract_table_GradR(), file,sep="\t",row.names=FALSE)}
-  )
   observeEvent(input$Search_mode, {
     if(input$Search_mode == "All")
     {
