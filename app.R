@@ -343,20 +343,20 @@ server<-function(input,output,session)
       # Legend
       scale_color_manual(values = c("#005AB5","red"), labels=c("Control","RNases")) +
       theme(legend.position=c(0.75,0.98),
-            legend.text=element_text(size=12),
+            legend.text=element_text(size=12, family = "Arial"),
             legend.direction="horizontal",
             legend.title.align = 0,
             legend.justification=c(0,1),
             legend.title=element_blank(),
             axis.title.x=element_blank(),
             plot.title = element_text(size = rel(2),
-                                      colour = "black",
+                                      colour = "black", family ="Arial",
                                       hjust = 0.5, face = "bold"),
             legend.background = element_rect(colour = "black"),
             legend.key = element_rect(fill = "white")) +
       
       # panel options
-      theme(panel.background = element_rect(fill = "white"), panel.grid.major = element_line(colour = "lightgrey"), panel.grid.minor = element_line(colour = "lightgrey"), axis.title.y = element_text(color="black",size=12,face="bold"), axis.text.x=element_text(size=10),plot.margin = margin(t=1, r=0, b=1, l=0, "cm"))  +
+      theme(panel.background = element_rect(fill = "white"), panel.grid.major = element_line(colour = "lightgrey"), panel.grid.minor = element_line(colour = "lightgrey"), axis.title.y = element_text(color="black",size=12,face="bold", family ="Arial"), axis.text.x=element_text(size=10, family = "Arial"),plot.margin = margin(t=1, r=0, b=1, l=0, "cm"))  +
       
       # x-axis scale and ticks
       scale_x_discrete(name ="Fractions", limits=c("1_2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"))
@@ -378,11 +378,11 @@ server<-function(input,output,session)
     colnames(r2.df) <- c("Amount","Fractions","RNases")
     
     # now plot the whole
-    plot1 <- ggplot(r1.df, aes(x=Fraction+0.5, y=ctrl)) + geom_tile(aes(fill = Amount)) + coord_equal(2) + theme(legend.position="none", axis.title.y = element_text(color="black",size=12,face="bold"),axis.text.x=element_text(size=10), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + scale_fill_gradient(low="white", high="#005AB5",n.breaks=100) + theme(axis.text.y=element_blank(), axis.ticks.y=element_blank(), axis.title.x=element_blank())  + scale_x_discrete(name ="Fractions", limits=c("1_2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"))
-    plot2 <- ggplot(r2.df, aes(x=Fractions+0.5, y=RNases)) + geom_tile(aes(fill = Amount)) + coord_equal(2) + theme(legend.position="none",axis.text.x=element_text(size=10),axis.title.y = element_text(color="black",size=12,face="bold"),panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + scale_fill_gradient(low="white", high="red",n.breaks=100) + theme(axis.text.y=element_blank(), axis.ticks.y=element_blank(), axis.title.x=element_blank()) + scale_x_discrete(name ="Fractions", limits=c("1_2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"))
+    plot1 <- ggplot(r1.df, aes(x=Fraction+0.5, y=ctrl)) + geom_tile(aes(fill = Amount)) + coord_equal(2) + theme(legend.position="none", axis.title.y = element_text(color="black",size=12,face="bold", family ="Arial"),axis.text.x=element_text(size=10), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + scale_fill_gradient(low="white", high="#005AB5",n.breaks=100) + theme(axis.text.y=element_blank(), axis.ticks.y=element_blank(), axis.title.x=element_blank())  + scale_x_discrete(name ="Fractions", limits=c("1_2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"))
+    plot2 <- ggplot(r2.df, aes(x=Fractions+0.5, y=RNases)) + geom_tile(aes(fill = Amount)) + coord_equal(2) + theme(legend.position="none",axis.text.x=element_text(size=10, family ="Arial"),axis.title.y = element_text(color="black",size=12,face="bold",family ="Arial"),panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + scale_fill_gradient(low="white", high="red",n.breaks=100) + theme(axis.text.y=element_blank(), axis.ticks.y=element_blank(), axis.title.x=element_blank()) + scale_x_discrete(name ="Fractions", limits=c("1_2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"))
     
     # combine all graphics in one panel
-    grid.arrange(scatterPlot, plot1, plot2, ncol=1, nrow=3, heights=c(1.5,.5,.5), bottom = textGrob("Fractions", gp = gpar(fontsize = 12,fontface="bold")))
+    grid.arrange(scatterPlot, plot1, plot2, ncol=1, nrow=3, heights=c(1.5,.5,.5), bottom = textGrob("Fractions", gp = gpar(fontsize = 12,fontface="bold", fontfamily = "Arial")))
     
   })
   
