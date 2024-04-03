@@ -138,7 +138,29 @@ table_individual_gradients<-table_individual_gradients[,c(1:19,21)]
 
 ###### ui
 
-  ui<-fluidPage(title="R-DeeP Nostoc",fluidRow(
+  ui<-fluidPage(title="R-DeeP Nostoc",
+  tags$head(
+    tags$meta(charset="UTF-8"),
+    tags$meta(name="description", content="Comprehensive database for the identification of putative RNA-binding proteins (RBPs) in the multicellular cyanobacterium Nostoc sp. PCC 7120. R-DeeP was used to detect the RNA-dependent proteome of this cyanobacterium"),
+    tags$meta(name="keywords", content="RBPs, RNA, cyanobacteria")
+    tags$meta(name = "author", content = "Manuel Brenes-Alvarez"),
+    tags$link(rel = "canonical", href = "https://sunshine.biologie.uni-freiburg.de/R-DeeP-Nostoc/"),
+    tags$meta(name = "viewport", content = "width=device-width, initial-scale=1"),
+    tags$script(
+    type = "application/ld+json",
+    '{
+      "@context": "http://schema.org",
+      "@type": "WebApplication",
+      "name": "R-DeeP Nostoc",
+      "author": {
+        "@type": "Person",
+        "name": "Manuel Brenes-Alvarez",
+        
+      }
+    }'
+  )
+    )
+  fluidRow(
                 column(width=4),
                 column(h1("R-DeeP", em("Nostoc"), style="font-family: 'Arial'; font-weight: bolder; font-size: 50px; color: #006594",align="center"),width=4),
                 column(img(src='CyanoRBP.png', height="80%", width="80%", align = "right"),width=4)),
