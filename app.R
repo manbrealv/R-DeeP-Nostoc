@@ -140,6 +140,7 @@ table_individual_gradients<-table_individual_gradients[,c(1:19,21)]
 
   ui<-fluidPage(title="R-DeeP Nostoc",
   tags$head(
+    tags$link(rel="shortcut icon", href="favicon.png"),
     tags$meta(charset="UTF-8"),
     tags$meta(name="description", content="Comprehensive database for the identification of putative RNA-binding proteins (RBPs) in the multicellular cyanobacterium Nostoc sp. PCC 7120. R-DeeP was used to detect the RNA-dependent proteome of this cyanobacterium"),
     tags$meta(name="keywords", content="RBPs, RNA, cyanobacteria"),
