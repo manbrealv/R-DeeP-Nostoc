@@ -19,6 +19,7 @@ library(ggbeeswarm)
 library(sp)
 library(raster)
 library(lattice)
+library(extrafont)
 
 #Load data from separate gradients
 
